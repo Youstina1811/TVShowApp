@@ -5,27 +5,31 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import sheridan.botrosy.tvshowapp.ui.theme.common.AboutDialog
-import sheridan.botrosy.tvshowapp.ui.theme.play.PlayScreen
+import sheridan.botrosy.tvshowapp.ui.theme.play.ChooseAgainScreen
+import sheridan.botrosy.tvshowapp.ui.theme.play.SelectBoxScreen
 import sheridan.botrosy.tvshowapp.ui.theme.result.ResultScreen
 
+// theme.AppRootScreen.kt
 @Composable
 fun AppRootScreen(viewModel: GameViewModel = viewModel()) {
-
     val uiState: GameUiState by viewModel.gameUiState.collectAsState()
 
     when (uiState.destination) {
-        Destination.PLAY -> PlayScreen(
-            userChoice = uiState.userChoice,
-            onUserChoiceChange = viewModel::onUserChoiceChange,
-            onPlay = viewModel::onPlay,
+        Destination.SELECT_BOX -> SelectBoxScreen(
+            selectedBox = uiState.userChoice,
+            onBoxSelect = viewModel::onBoxSelect,
+            onNext = viewModel::onNextPage,
             onHelpButtonClick = viewModel::onOpenHelp
         )
-
-        Destination.RESULT -> ResultScreen(
+        Destination.CHOOSE_AGAIN -> ChooseAgainScreen(
             userChoice = uiState.userChoice,
-            computerChoice = uiState.computerChoice,
-            gameResult = uiState.gameResult,
-            onReplay = viewModel::onReplay,
+            onKeep = viewModel::onKeepSelection,
+            onSelectAnother = viewModel::onBoxSelect,
+            onNext = viewModel::onNextPage,
+            onHelpButtonClick = viewModel::onOpenHelp
+        )
+        Destination.PRIZE -> PrizeScreen(
+            userChoice = uiState.userChoice,
             onHelpButtonClick = viewModel::onOpenHelp
         )
     }
@@ -34,4 +38,3 @@ fun AppRootScreen(viewModel: GameViewModel = viewModel()) {
         AboutDialog(onDismissRequest = viewModel::onCloseHelp)
     }
 }
-
