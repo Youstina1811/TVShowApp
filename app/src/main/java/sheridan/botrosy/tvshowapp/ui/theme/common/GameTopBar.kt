@@ -16,7 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import sheridan.botrosy.tvshowapp.R
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameTopBar(
@@ -24,40 +23,27 @@ fun GameTopBar(
     scrollBehavior: TopAppBarScrollBehavior,
     onHelpButtonClick: () -> Unit,
     onNavigateBack: (() -> Unit)? = null
-) = CenterAlignedTopAppBar(
-    title = {
-        Text(
-            text = title,
-            fontSize = 24.sp
-        )
-    },
-    navigationIcon = {
-        if (onNavigateBack != null) {
-            IconButton(onClick = onNavigateBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = stringResource(id = R.string.replay),
-                    tint = MaterialTheme.colorScheme.primary
-                )
+) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = title, fontSize = 24.sp)
+        },
+        navigationIcon = {
+            if (onNavigateBack != null) {
+                IconButton(onClick = onNavigateBack) {
+                    Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = stringResource(id = R.string.replay))
+                }
             }
-        }
-    },
-    actions = {
-        IconButton(
-            onClick = onHelpButtonClick,
-            colors = IconButtonDefaults.iconButtonColors(
-                contentColor = MaterialTheme.colorScheme.primary
-            )
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_help_outline_24),
-                contentDescription = stringResource(R.string.about)
-            )
-        }
-    },
-    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        titleContentColor = MaterialTheme.colorScheme.primary,
-    ),
-    scrollBehavior = scrollBehavior,
-)
+        },
+        actions = {
+            IconButton(onClick = onHelpButtonClick) {
+                Icon(painter = painterResource(id = R.drawable.baseline_help_outline_24), contentDescription = stringResource(R.string.about))
+            }
+        },
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            titleContentColor = MaterialTheme.colorScheme.primary
+        ),
+        scrollBehavior = scrollBehavior
+    )
+}

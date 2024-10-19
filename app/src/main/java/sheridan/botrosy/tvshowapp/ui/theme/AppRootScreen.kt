@@ -1,3 +1,5 @@
+@file:Suppress("UNREACHABLE_CODE")
+
 package sheridan.botrosy.tvshowapp.ui.theme
 
 import androidx.compose.runtime.Composable
@@ -23,20 +25,21 @@ fun AppRootScreen(viewModel: GameViewModel = viewModel()) {
         Destination.CHOOSE_AGAIN -> ChooseAgainScreen(
             userChoice = uiState.userChoice,
             onKeep = viewModel::onKeepSelection,
-            onSelectAnother = viewModel::onBoxSelect,
+            onSelectAnother = viewModel::onSelectAnother,
             onNext = viewModel::onNextPage,
             onHelpButtonClick = viewModel::onOpenHelp
         )
         Destination.PRIZE -> PrizeScreen(
             userChoice = uiState.userChoice,
+            computerChoice = viewModel.getComputerChoice(),
+            gameResult = viewModel.calculateGameResult(),
+            onReplay = viewModel::onReplay,
             onHelpButtonClick = viewModel::onOpenHelp,
-            computerChoice = TODO(),
-            gameResult = TODO(),
-            onReplay = TODO()
+            onSelectAnother = viewModel::onSelectAnother // Pass the function here
         )
     }
 
-    if(viewModel.showHelp){
+    if (viewModel.showHelp) {
         AboutDialog(onDismissRequest = viewModel::onCloseHelp)
     }
 }

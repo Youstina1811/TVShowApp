@@ -9,21 +9,15 @@ import androidx.compose.ui.unit.sp
 import sheridan.botrosy.tvshowapp.R
 
 @Composable
-fun AboutDialog(onDismissRequest: () -> Unit) =
+fun AboutDialog(onDismissRequest: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismissRequest,
         title = { Text(stringResource(R.string.about_game)) },
-        text = {
-            Text(
-                text = stringResource(R.string.programming_example),
-                fontSize = 18.sp
-            )
-        },
+        text = { Text(text = stringResource(R.string.programming_example), fontSize = 18.sp) },
         confirmButton = {
-            TextButton(
-                onClick = onDismissRequest
-            ) {
+            TextButton(onClick = onDismissRequest) {
                 Text(stringResource(R.string.ok))
             }
         }
     )
+}

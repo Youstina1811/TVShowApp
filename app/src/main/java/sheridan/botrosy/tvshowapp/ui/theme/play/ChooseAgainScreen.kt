@@ -20,15 +20,15 @@ fun ChooseAgainScreen(
     onKeep: () -> Unit,
     onSelectAnother: (Choice) -> Unit,
     onHelpButtonClick: () -> Unit,
-    onNext: KFunction0<Unit>
+    onNext: () -> Unit
 ) {
     Scaffold(
         topBar = {
             GameTopBar(
                 title = "Your Prize",
                 onHelpButtonClick = onHelpButtonClick,
-                scrollBehavior = TODO(),
-                onNavigateBack = TODO()
+                scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
+                onNavigateBack = null
             )
         }
     ) { innerPadding ->
@@ -40,6 +40,12 @@ fun ChooseAgainScreen(
         ) {
             Text(text = "You chose: ${userChoice.name}")
             Text(text = "Prize: ${GameService().getBoxContents(userChoice)}")
+            Button(onClick = onKeep) {
+                Text("Keep Selection")
+            }
+            Button(onClick = { onSelectAnother(userChoice) }) {
+                Text("Select Another Box")
+            }
         }
     }
 }

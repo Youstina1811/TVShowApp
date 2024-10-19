@@ -42,29 +42,17 @@ fun PrizeScreen(
     computerChoice: Choice,
     gameResult: GameResult,
     onReplay: () -> Unit,
-    onHelpButtonClick: () -> Unit
+    onHelpButtonClick: () -> Unit,
+    onSelectAnother: (Choice) -> Unit // Add this parameter
 ) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         topBar = {
             GameTopBar(
                 title = stringResource(id = R.string.game_result),
                 onHelpButtonClick = onHelpButtonClick,
-                scrollBehavior = scrollBehavior,
+                scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
                 onNavigateBack = onReplay
             )
-        },
-        floatingActionButton = {
-            if(userChoice != Choice.UNKNOWN){
-                FloatingActionButton(
-                    onClick = onReplay
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                        contentDescription = stringResource(R.string.replay)
-                    )
-                }
-            }
         },
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
@@ -72,83 +60,32 @@ fun PrizeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(32.dp)
-                .verticalScroll(rememberScrollState())
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Text(
                 text = resultToString(gameResult = gameResult),
                 fontSize = 32.sp,
                 color = colorResource(id = R.color.orange_500)
             )
-
+            // Add visuals for choices
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ){
-                ChoiceToImage(
-                    choice = computerChoice,
-                    modifier = Modifier.border(
-                        width = 2.dp,
-                        shape = CircleShape,
-                        color = Color.DarkGray
-                    )
-                )
-                Text("versus",  fontSize = 20.sp)
-                ChoiceToImage(
-                    choice = userChoice,
-                    modifier = Modifier.border(
-                        width = 2.dp,
-                        shape = CircleShape,
-                        color = Color.DarkGray
-                    )
-                )
+            ) {
+                ChoiceToImage(choice = computerChoice)
+                Text("versus")
+                ChoiceToImage(choice = userChoice)
             }
 
-            Column(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.computer),
-                        fontSize = 20.sp,
-                    )
-                    Text(
-                        text = choiceToString(choice = computerChoice),
-                        fontSize = 20.sp,
-                        color = colorResource(id = R.color.purple_500)
-                    )
-                }
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.you),
-                        fontSize = 20.sp,
-                    )
-                    Text(
-                        text = choiceToString(choice = userChoice),
-                        fontSize = 20.sp,
-                        color = colorResource(id = R.color.purple_500)
-                    )
-                }
+            // Add the Select Another Box button
+            Button(onClick = { onSelectAnother(Choice.UNKNOWN) }) { // Pass UNKNOWN or another choice as needed
+                Text(text = "Select Another Box")
             }
 
             Button(onClick = onReplay) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = null
-                )
-                Text(
-                    text = stringResource(R.string.replay),
-                    fontSize = 20.sp
-                )
+                Text(text = stringResource(R.string.replay), fontSize = 20.sp)
             }
         }
     }

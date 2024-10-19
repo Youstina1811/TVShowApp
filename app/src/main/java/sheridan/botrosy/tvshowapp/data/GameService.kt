@@ -1,7 +1,7 @@
 package sheridan.botrosy.tvshowapp.data
 
 import sheridan.botrosy.tvshowapp.domain.Choice
-import sheridan.botrosy.tvshowapp.domain.GameResult
+//import sheridan.botrosy.tvshowapp.domain.GameResult
 import kotlin.random.Random
 
 class GameService(
