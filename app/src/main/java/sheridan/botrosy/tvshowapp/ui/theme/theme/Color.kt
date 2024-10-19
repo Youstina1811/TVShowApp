@@ -1,4 +1,4 @@
-package sheridan.botrosy.tvshowapp.ui.theme
+package sheridan.botrosy.tvshowapp.ui.theme.theme
 
 import androidx.compose.ui.graphics.Color
 
