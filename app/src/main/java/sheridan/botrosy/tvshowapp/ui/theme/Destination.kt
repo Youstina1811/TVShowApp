@@ -1,5 +1,5 @@
 package sheridan.botrosy.tvshowapp.ui.theme
 
 enum class Destination {
-    PLAY, RESULT
+    SELECT_BOX, CHOOSE_AGAIN, PRIZE
 }

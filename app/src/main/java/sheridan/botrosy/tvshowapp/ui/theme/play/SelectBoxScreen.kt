@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 //import sheridan.botrosy.tvshowapp.R
 import sheridan.botrosy.tvshowapp.domain.Choice
-import sheridan.botrosy.tvshowapp.ui.theme.common.ChoiceToImage
+//import sheridan.botrosy.tvshowapp.ui.theme.common.ChoiceToImage
 import sheridan.botrosy.tvshowapp.ui.theme.common.GameTopBar
-import sheridan.botrosy.tvshowapp.ui.theme.common.choiceToString
+//import sheridan.botrosy.tvshowapp.ui.theme.common.choiceToString
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.unit.dp
@@ -54,7 +54,9 @@ fun SelectBoxScreen(
         topBar = {
             GameTopBar(
                 title = "Select a Box",
-                onHelpButtonClick = onHelpButtonClick
+                onHelpButtonClick = onHelpButtonClick,
+                scrollBehavior = TODO(),
+                onNavigateBack = TODO()
             )
         }
     ) { innerPadding ->
