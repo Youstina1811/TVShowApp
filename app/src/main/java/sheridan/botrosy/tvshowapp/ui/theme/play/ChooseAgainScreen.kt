@@ -1,3 +1,5 @@
+@file:Suppress("UNREACHABLE_CODE")
+
 package sheridan.botrosy.tvshowapp.ui.theme.play
 
 import androidx.compose.material3.*
@@ -8,13 +10,17 @@ import sheridan.botrosy.tvshowapp.domain.Choice
 import sheridan.botrosy.tvshowapp.data.GameService
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.unit.dp
+import kotlin.reflect.KFunction0
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PrizeScreen(
+fun ChooseAgainScreen(
     userChoice: Choice,
-    onHelpButtonClick: () -> Unit
+    onKeep: () -> Unit,
+    onSelectAnother: (Choice) -> Unit,
+    onHelpButtonClick: () -> Unit,
+    onNext: KFunction0<Unit>
 ) {
     Scaffold(
         topBar = {

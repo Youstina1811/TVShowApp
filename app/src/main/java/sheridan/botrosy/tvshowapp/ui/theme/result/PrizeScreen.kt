@@ -37,7 +37,7 @@ import sheridan.botrosy.tvshowapp.ui.theme.common.resultToString
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResultScreen(
+fun PrizeScreen(
     userChoice: Choice,
     computerChoice: Choice,
     gameResult: GameResult,

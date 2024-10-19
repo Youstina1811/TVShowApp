@@ -7,9 +7,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import sheridan.botrosy.tvshowapp.ui.theme.common.AboutDialog
 import sheridan.botrosy.tvshowapp.ui.theme.play.ChooseAgainScreen
 import sheridan.botrosy.tvshowapp.ui.theme.play.SelectBoxScreen
-import sheridan.botrosy.tvshowapp.ui.theme.result.ResultScreen
+import sheridan.botrosy.tvshowapp.ui.theme.result.PrizeScreen
 
-// theme.AppRootScreen.kt
 @Composable
 fun AppRootScreen(viewModel: GameViewModel = viewModel()) {
     val uiState: GameUiState by viewModel.gameUiState.collectAsState()
@@ -30,7 +29,10 @@ fun AppRootScreen(viewModel: GameViewModel = viewModel()) {
         )
         Destination.PRIZE -> PrizeScreen(
             userChoice = uiState.userChoice,
-            onHelpButtonClick = viewModel::onOpenHelp
+            onHelpButtonClick = viewModel::onOpenHelp,
+            computerChoice = TODO(),
+            gameResult = TODO(),
+            onReplay = TODO()
         )
     }
 

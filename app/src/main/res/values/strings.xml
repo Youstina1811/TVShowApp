@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rock Paper Scissors</string>
+    <string name="app_name">TV Show App</string>
 
     <string name="make_your_choice">Make your choice</string>
     <string name="game_result">Game Result</string>
@@ -21,8 +21,6 @@
 
     <string name="computer">Computer</string>
     <string name="you">You</string>
-    <string name="unknown">Unknown</string>
-    <string name="unknown_result">Unknown result</string>
 
     <string name="about">About</string>
     <string name="about_game">About Game</string>
