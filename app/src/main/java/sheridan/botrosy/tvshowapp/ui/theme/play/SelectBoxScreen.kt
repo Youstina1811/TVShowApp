@@ -26,6 +26,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.graphicsLayer
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,28 +58,40 @@ fun SelectBoxScreen(
                 .padding(32.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                // Loop through each box choice and display it as an image
-                for (box in Choice.values().filter { it != Choice.UNKNOWN }) {
-                    Image(
-                        painter = painterResource(id = getBoxImageResource(box)), // Use the function here
-                        contentDescription = box.name,
-                        modifier = Modifier
-                            .size(80.dp) // Size of the image
-                            .clickable {
-                                selectedChoice.value = box // Update the selected choice
-                                onBoxSelect(box) // Optional: Call this if you want to update the view model
-                            }
-                    )
+            // Define the number of boxes per row
+            val boxesPerRow = 3
+            val boxes = Choice.values().filter { it != Choice.UNKNOWN }
+
+            // Loop through the boxes and display them in rows
+            boxes.chunked(boxesPerRow).forEach { rowBoxes ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    rowBoxes.forEach { box ->
+                        Image(
+                            painter = painterResource(id = getBoxImageResource(box)), // Use the function here
+                            contentDescription = box.name,
+                            modifier = Modifier
+                                .size(120.dp) // Increased size of the image
+                                .padding(8.dp) // Add some padding between images
+                                .graphicsLayer(
+                                    alpha = if (selectedChoice.value == box) 0.5f else 1f // Adjust opacity based on selection
+                                )
+                                .clickable {
+                                    selectedChoice.value = box // Update the selected choice
+                                    onBoxSelect(box) // Update the view model or perform other actions
+                                }
+                        )
+                    }
                 }
             }
 
             // Enable the Next button only if a box is selected
             Button(
-                onClick = onNext,
+                onClick = {
+                    onNext() // Proceed to the next page
+                },
                 enabled = selectedChoice.value != Choice.UNKNOWN // Enable if a choice is made
             ) {
                 Text("Next")
@@ -84,7 +99,6 @@ fun SelectBoxScreen(
         }
     }
 }
-
 // Function to get the resource ID for each box image
 fun getBoxImageResource(choice: Choice): Int {
     return when (choice) {
